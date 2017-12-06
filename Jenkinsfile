@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        App_Name    = 'poalim-nodejs4'
+    }
 
     stages {
         stage('Get Dockerfile') {
