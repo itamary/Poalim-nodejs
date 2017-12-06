@@ -11,13 +11,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-		sh "export App_Name = `echo ${GIT_URL}  | awk -F / '{print $NF}' | awk -F . '{print $1}'` 
+		source var_file
 		sh "docker build -t itamar/${App_Name}:${BUILD_NUMBER} ."
             }
         }
         stage('Push to registry') {
             steps {
                 echo 'Pushing to registry..'
+		source var_file
 		sh "export App_Name = `echo ${GIT_URL}  | awk -F / '{print $NF}' | awk -F . '{print $1}'`
 		sh "docker login -u itamar -p Aa123123"
 		sh "docker push itamar/${App_Name}:${BUILD_NUMBER}"
